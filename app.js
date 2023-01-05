@@ -83,9 +83,9 @@ passport.use(new FacebookStrategy({
     });
   }
 ));
-app.get('https://keeperserver.cyclic.app/auth/google',
+app.get('/auth/google',
   passport.authenticate('google', { scope: ['profile'] }));
-app.get('https://keeperserver.cyclic.app/auth/google/auth/google/loggedin', 
+app.get('/auth/google/loggedin', 
   passport.authenticate('google',{ failureRedirect: 'https://keeper-by-saurav.cyclic.app/login' }),
   function(req, res) {
     // Successful authentication, redirect home.
