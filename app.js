@@ -12,8 +12,8 @@ var FacebookStrategy=require("passport-facebook").Strategy
 var findOrCreate = require('mongoose-findorcreate')
 
 mongoose.set('strictQuery', false);
-// mongoose.connect("mongodb+srv://admin:admin@cluster0.wu6ayr7.mongodb.net/keeperDB")
-mongoose.connect("mongodb://localhost/keeperDB");
+mongoose.connect("mongodb+srv://admin:admin@cluster0.wu6ayr7.mongodb.net/keeperDB")
+// mongoose.connect("mongodb://localhost/keeperDB");
 
 
 const app=express();
@@ -60,7 +60,7 @@ passport.serializeUser(function(user, cb) {
   passport.use(new GoogleStrategy({
     clientID: process.env.CLIENT_ID,
     clientSecret:process.env.CLIENT_SECRET,
-    callbackURL: "http://localhost:8080/auth/google/loggedin"
+    callbackURL: "https://keeperserver.cyclic.app/auth/google/loggedin"
   },
   function(accessToken, refreshToken, profile, cb) {
     User.findOrCreate({ SocialId: profile.id ,name:profile.displayName,Avatar:profile.photos[0].value}, function (err, user) {
@@ -83,19 +83,19 @@ passport.use(new FacebookStrategy({
     });
   }
 ));
-app.get('/auth/google',
+app.get('https://keeperserver.cyclic.app/auth/google',
   passport.authenticate('google', { scope: ['profile'] }));
-app.get('/auth/google/loggedin', 
-  passport.authenticate('google',{ failureRedirect: 'http://localhost:3000/login' }),
+app.get('https://keeperserver.cyclic.app/auth/google/auth/google/loggedin', 
+  passport.authenticate('google',{ failureRedirect: 'https://keeper-by-saurav.cyclic.app/login' }),
   function(req, res) {
     // Successful authentication, redirect home.
     res.redirect("https://keeper-by-saurav.cyclic.app/");
   });
-  app.get('/auth/facebook',
+  app.get('https://keeperserver.cyclic.app/auth/facebook',
   passport.authenticate('facebook'));
 
-  app.get('/auth/facebook/loggedin',
-  passport.authenticate('facebook', { failureRedirect: 'http://localhost:3000/login' }),
+  app.get('https://keeperserver.cyclic.app/auth/facebook/loggedin',
+  passport.authenticate('facebook', { failureRedirect: 'https://keeper-by-saurav.cyclic.app/login' }),
   function(req, res) {
     // Successful authentication, redirect home.
     res.redirect("https://keeper-by-saurav.cyclic.app/");
