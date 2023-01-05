@@ -89,7 +89,7 @@ app.get('/auth/google/loggedin',
   passport.authenticate('google',{ failureRedirect: 'https://keeper-by-saurav.cyclic.app/login' }),
   function(req, res) {
     // Successful authentication, redirect home.
-    res.redirect("https://keeper-by-saurav.cyclic.app/");
+    res.redirect("https://localhost:3000/");
   });
   app.get('https://keeperserver.cyclic.app/auth/facebook',
   passport.authenticate('facebook'));
